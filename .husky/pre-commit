@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Check for linting
+npx lint-staged
+# Generate solidity docs
+npm run gendoc && git add ./docs/solidity
