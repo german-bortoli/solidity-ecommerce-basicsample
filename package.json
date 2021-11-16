@@ -8,7 +8,7 @@
   "author": "German Bortoli <germanazo@gmail.com>",
   "main": "src/index.ts",
   "scripts": {
-    "build": "yarn compile",
+    "build": "yarn compile --force",
     "chain": "hardhat node",
     "compile": "hardhat compile",
     "coverage": "yarn build && hardhat coverage --temp artifacts --network coverage",

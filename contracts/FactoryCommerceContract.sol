@@ -26,7 +26,7 @@ contract FactoryCommerceContract is Context, ERC721, Ownable {
   mapping(uint256 => address) public itemToOwner;
   mapping(address => uint256) ownerItemCount;
 
-  /// @notice Constructor of NFT Token
+  /// @notice Constructor of NFT Token.
   // solhint-disable-next-line not-rely-on-time
   constructor() ERC721('CommerceToken', 'GCTK') {}
 

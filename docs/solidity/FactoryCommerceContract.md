@@ -9,7 +9,7 @@ Contract under development to enable shop items
 
 ### `constructor()` (public)
 
-Constructor of NFT Token
+Constructor of NFT Token.
 
 
 
