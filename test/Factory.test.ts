@@ -2,22 +2,34 @@ import { expect } from 'chai'
 import { Signer } from 'ethers'
 import { ethers } from 'hardhat'
 
-describe('FactoryCommerce', function () {
+import {
+  CommerceContract__factory,
+  FactoryCommerceContract,
+} from '../typechain-types'
+
+describe('FactoryCommerce', async () => {
   let accounts: Signer[]
+  let CommerceContract
+  let myCommerce: FactoryCommerceContract
 
   beforeEach(async function () {
     accounts = await ethers.getSigners()
+    CommerceContract = (await ethers.getContractFactory(
+      'FactoryCommerceContract',
+    )) as CommerceContract__factory
+
+    const tx = await CommerceContract.deploy()
+    myCommerce = await tx.deployed()
   })
 
-  it('Should create 2 shop items', async function () {
-    const CommerceContract = await ethers.getContractFactory(
-      'FactoryCommerceContract',
-    )
-    const myCommerce = await CommerceContract.deploy()
-    await myCommerce.deployed()
+  it('Factory test', async () => {
+    expect(await myCommerce.name()).to.equal('CommerceToken')
+    expect(await myCommerce.symbol()).to.equal('GCTK')
+  })
 
+  it('Should create and verify 2 shop items', async () => {
     const item = {
-      title: 'Object1',
+      title: 'Object',
       description: 'Description for object one',
       photoUrl: 'https://picsum.photos/200/300',
       price: 10,
@@ -29,6 +41,7 @@ describe('FactoryCommerce', function () {
       item.photoUrl,
       item.price,
     )
+
     const shopItem2 = await myCommerce.createItem(
       item.title,
       item.description,
