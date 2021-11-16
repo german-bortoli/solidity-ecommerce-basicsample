@@ -3,8 +3,8 @@ import { Signer } from 'ethers'
 import { ethers } from 'hardhat'
 
 import {
-  CommerceContract__factory,
   FactoryCommerceContract,
+  FactoryCommerceContract__factory as factory,
 } from '../typechain-types'
 
 describe('FactoryCommerce', async () => {
@@ -16,7 +16,7 @@ describe('FactoryCommerce', async () => {
     accounts = await ethers.getSigners()
     CommerceContract = (await ethers.getContractFactory(
       'FactoryCommerceContract',
-    )) as CommerceContract__factory
+    )) as factory
 
     const tx = await CommerceContract.deploy()
     myCommerce = await tx.deployed()
