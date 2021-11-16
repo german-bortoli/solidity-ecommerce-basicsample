@@ -7,11 +7,11 @@ import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
 /// @author Bortoli German
-/// @title Commerce Contract
+/// @title Factory Commerce Contract
 /// @notice Sample commerce contract just for learning purposes
 /// @dev Contract under development to enable shop items
 /// @custom:security-contact german@borto.li
-contract CommerceContract is Context, ERC721, Ownable {
+contract FactoryCommerceContract is Context, ERC721, Ownable {
   using Address for address;
 
   /// @notice Event fired when the item get created.
@@ -27,6 +27,7 @@ contract CommerceContract is Context, ERC721, Ownable {
   mapping(address => uint256) ownerItemCount;
 
   /// @notice Constructor of NFT Token
+  // solhint-disable-next-line not-rely-on-time
   constructor() ERC721('CommerceToken', 'GCTK') {}
 
   /// @notice Shop item struct
@@ -40,17 +41,17 @@ contract CommerceContract is Context, ERC721, Ownable {
   /// @notice Array of Shop items.
   ShopItem[] public items;
 
-  /// @notice Generate an item and stores into the blockchain
+  /// @notice Generate an item and stores into the blockchain.
   /// @param title Title of the item
   /// @param description Brief description of the item
   /// @param photoUrl Photo url
   /// @param price Sell price unit
-  function _createItem(
+  function createItem(
     string memory title,
     string memory description,
     string memory photoUrl,
     uint256 price
-  ) internal {
+  ) public {
     items.push(ShopItem(title, description, photoUrl, price));
     uint256 id = items.length - 1;
     itemToOwner[id] = _msgSender();
